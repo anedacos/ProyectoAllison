@@ -1,3 +1,5 @@
+package Principal;
+
 import java.io.File;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -48,6 +50,7 @@ public class Interfaz extends Application {
         pausar.setManaged(false);
         // cargarLista.setText("Cargar Listado");
         cargarLista.setOnAction(new EventHandler<ActionEvent>() {
+            
             @Override
             public void handle(ActionEvent event) {
                 FileChooser fileChooser = new FileChooser();
@@ -70,7 +73,9 @@ public class Interfaz extends Application {
         });
         //Scene escenaSimulacion;
         simulador.setOnAction(new EventHandler<ActionEvent>() {
+            Thread t1;
             @Override
+                //public void run() {
             public void handle(ActionEvent event) {
                 pausar.setVisible(true);
                 pausar.setManaged(true);
