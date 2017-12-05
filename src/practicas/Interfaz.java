@@ -1,6 +1,10 @@
 package practicas;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -22,10 +26,10 @@ import javafx.stage.Stage;
  * @author User
  */
 public class Interfaz extends Application {
-      PriorityQueue<Aviones> colaJunta= new PriorityQueue();
-        PriorityQueue<Aviones> prioridad1= new PriorityQueue();
-        PriorityQueue<Aviones> prioridad2= new PriorityQueue();
-        PriorityQueue<Aviones> prioridad3= new PriorityQueue();
+      PriorityQueue<Avion> colaJunta= new PriorityQueue();
+        PriorityQueue<Avion> prioridad1= new PriorityQueue();
+        PriorityQueue<Avion> prioridad2= new PriorityQueue();
+        PriorityQueue<Avion> prioridad3= new PriorityQueue();
 
         
 
@@ -60,15 +64,15 @@ public class Interfaz extends Application {
                     String texto = "";
                     try {
                         texto = file.getAbsolutePath();
-                        Aviones avion = new Aviones();
-                        avion.instanciando(texto, colaJunta);
-                        Queue<Aviones> lista=avion.separandoCola(colaJunta, prioridad1, prioridad2, prioridad3);
-                        Avion a = new Avion();
-                        a.cogiendoColaInterfaz(lista);
+                        Aviones aviones = new Aviones();
+                        aviones.instanciando(texto, colaJunta);
+                        aviones.setCola(aviones.separandoCola(colaJunta, prioridad1, prioridad2, prioridad3));
+                        //Aviones a = new Aviones(AvionesOrdenados);
+                        //a.cogiendoColaInterfaz(lista);
                         //System.out.println(avion.separandoCola(colaJunta, prioridad1, prioridad2, prioridad3));
                         simulador.setVisible(true);
                         simulador.setManaged(true);
-                        text.setText("Vamos a comenzar con la Simulación");
+                        //text.setText("Vamos a comenzar con la Simulación");
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -79,7 +83,7 @@ public class Interfaz extends Application {
         simulador.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Avion escena = new Avion();
+                Aviones escena = new Aviones();
                 
 
                 primaryStage.setScene(escena.Simulacion());
@@ -104,5 +108,7 @@ public class Interfaz extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
+   
 
 }

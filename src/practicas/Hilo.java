@@ -15,7 +15,7 @@ public class Hilo extends Thread {
     @Override
     public void run() {
         try {
-            Avion.interrupted();
+            Aviones.interrupted();
         } catch (Exception e) {
             System.out.println(e);
         }
