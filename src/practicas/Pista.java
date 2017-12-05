@@ -28,26 +28,50 @@ import org.xml.sax.SAXException;
  *
  * @author Antho
  */
-public class Pista extends Application {
- 
-    
+public class Pista {
+    ArrayList<Label> ListaAviones = new ArrayList <Label>(); 
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public Pista(ArrayList<Label> listaAviones) {
+        this.ListaAviones=listaAviones;
+    }
+    
+    public Pista(){
+    
+    }
+
+    public ArrayList<Label> getListaAviones() {
+        return ListaAviones;
+    }
+
+    public void setListaAviones(ArrayList<Label> ListaAviones) {
+        this.ListaAviones = ListaAviones;
+    }
+
+    public Scene SimulacionPista() {
         StackPane root = new StackPane();     
         VBox colaAviones = new VBox();
-        Aviones aviones = new Aviones();
+        //Aviones aviones = new Aviones();
+        Iterator LLP = ListaAviones.iterator();
+        while(LLP.hasNext()){
+            Label temp = (Label) LLP.next();
+            colaAviones.getChildren().add(temp);
+        }
         
-        
+        //llenarPista(ListaAviones, colaAviones);
+        root.getChildren().add(colaAviones);
         Scene scene = new Scene(root, 400, 400);
-        primaryStage.setTitle("Aeropuerto");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return scene;
         
     }
     
-    public void llenarPista(ArrayList<Label> listaAviones){
-        Iterator it = listaAviones.iterator();
+    
+    
+    public void llenarPista(Aviones aviones){        
+        while(!aviones.cola.isEmpty()){
+            System.out.println("Hasta aqui");
+            Label temp = new Label(aviones.cola.poll().codigo);
+            this.ListaAviones.add(temp);
+        }        
         
         
     }

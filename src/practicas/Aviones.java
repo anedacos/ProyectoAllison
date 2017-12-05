@@ -24,21 +24,27 @@ import javafx.scene.layout.VBox;
  * @author User
  */
 public class Aviones extends Thread {
-    //Hilo hilo = new Hilo();
-    Button pausar = new Button("Pausar Simulación");
     Slider slider = new Slider();
-    Queue<Avion> cola;
-    VBox panelAvion;
-    ArrayList<Label> aviones = new ArrayList <Label>();
+    Button pausar = new Button("Pausar simulacion");
     
+    Queue<Avion> cola;
+    //ArrayList<Label> AvionesCompletos = new ArrayList <Label>();
+    
+    
+    public void ListarAviones(ArrayList<Label> label){
+        Iterator it = cola.iterator();
+        while(it.hasNext()){
+            Label temp = new Label(this.cola.poll().codigo+"\n"+this.cola.poll().partida+"\n");
+            label.add(temp);
+        }
+    }
     
 
     public Aviones(Queue<Avion> cola) {
         this.cola = cola;
     }
 
-    public Aviones() {
-        
+    public Aviones() {        
     }
 
     public Queue<Avion> getCola() {
@@ -153,11 +159,11 @@ public class Aviones extends Thread {
         while (!prioridad3.isEmpty()) {
             colaNueva.offer(prioridad3.poll());
         }
-        
+        /*
          while (it.hasNext()) {
             Avion line2 = (Avion) it.next();
-            line2.AgregarAvion(aviones);
-        }
+            line2.CrearAvion(aviones);
+        }*/
         
         System.out.println("\n Posi \n");
         for (Avion cn : colaNueva) {

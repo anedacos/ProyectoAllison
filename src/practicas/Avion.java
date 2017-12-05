@@ -25,7 +25,7 @@ public class Avion implements Comparable<Avion> {
 
     String codigo, partida, destino;
     int distancia, tiempoEspera;
-    Label AvionCompleto;
+    //Label AvionCompleto;
 
     public Avion() {
         this.codigo = null;
@@ -43,10 +43,11 @@ public class Avion implements Comparable<Avion> {
         this.tiempoEspera = tiempoEspera;
     }
     
-    public void AgregarAvion(ArrayList<Label> a){
+    /*public void CrearAvion(ArrayList<Label> a){
         AvionCompleto=new Label(codigo+"\n"+partida+"\n");
         a.add(AvionCompleto);
-    }
+        
+    }*/
 
     public String getCodigo() {
         return codigo;
