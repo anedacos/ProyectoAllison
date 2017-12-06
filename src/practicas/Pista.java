@@ -65,7 +65,7 @@ public class Pista {
     }
     
     
-    
+    /*
     public void llenarPista(Aviones aviones){        
         while(!aviones.cola.isEmpty()){
             System.out.println("Hasta aqui");
@@ -74,6 +74,6 @@ public class Pista {
         }        
         
         
-    }
+    }*/
     
 }

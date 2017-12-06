@@ -1,12 +1,6 @@
 package practicas;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -28,10 +22,10 @@ import javafx.stage.Stage;
  * @author User
  */
 public class Interfaz extends Application {
-      PriorityQueue<Avion> colaJunta= new PriorityQueue();
-        PriorityQueue<Avion> prioridad1= new PriorityQueue();
-        PriorityQueue<Avion> prioridad2= new PriorityQueue();
-        PriorityQueue<Avion> prioridad3= new PriorityQueue();
+      PriorityQueue<Aviones> colaJunta= new PriorityQueue();
+        PriorityQueue<Aviones> prioridad1= new PriorityQueue();
+        PriorityQueue<Aviones> prioridad2= new PriorityQueue();
+        PriorityQueue<Aviones> prioridad3= new PriorityQueue();
 
         
 
@@ -41,17 +35,23 @@ public class Interfaz extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Aviones aviones = new Aviones();
-        ArrayList<Label> ListaAviones = new ArrayList <Label>();
-        
+        Avion a=new Avion();
+       /*  PriorityQueue<Aviones> colaJunta= new PriorityQueue();
+        PriorityQueue<Aviones> prioridad1= new PriorityQueue();
+        PriorityQueue<Aviones> prioridad2= new PriorityQueue();
+        PriorityQueue<Aviones> prioridad3= new PriorityQueue(); */
         Button cargarLista = new Button("Cargar Listado");
         Button simulador = new Button("Empezar Simulación");
+        //Button pausar = new Button("Pausar Simulación");
         Button avisoProblema = new Button("Aviso Problema");
         Label text = new Label("Preparandose para el despegue");
+        // texto.setAlignment(Pos.TOP_CENTER);
+        //  simulador.setText("Empezar Simulación");
         avisoProblema.setVisible(false);
         avisoProblema.setManaged(false);
         simulador.setVisible(false);
         simulador.setManaged(false);
+        // cargarLista.setText("Cargar Listado");
         cargarLista.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -60,13 +60,16 @@ public class Interfaz extends Application {
                 if (file != null) {
                     String texto = "";
                     try {
-                        texto = file.getAbsolutePath();                        
-                        aviones.instanciando(texto, colaJunta);
-                        aviones.setCola(aviones.separandoCola(colaJunta, prioridad1, prioridad2, prioridad3));
+                        texto = file.getAbsolutePath();
+                        Aviones avion = new Aviones();
+                        avion.instanciando(texto, colaJunta);
+                        Queue<Aviones> lista = avion.separandoCola(colaJunta, prioridad1, prioridad2, prioridad3);
                         
-                        
+                        a.setCola(lista);
+                        //System.out.println(avion.separandoCola(colaJunta, prioridad1, prioridad2, prioridad3));
                         simulador.setVisible(true);
                         simulador.setManaged(true);
+                        text.setText("Vamos a comenzar con la Simulación");
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -77,14 +80,13 @@ public class Interfaz extends Application {
         simulador.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Pista pista = new Pista();
-                pista.llenarPista(aviones);
-                System.out.println("");                
-                System.out.println("==============");
+                /*Avion avion = new Avion();
+                Thread hilo = new Thread(avion);
+                hilo.start();*/
+                Avion escena = new Avion(a.getCola());
                 
-                System.out.println(aviones.cola.poll());               
-               
-                pista.SimulacionPista();                
+
+                primaryStage.setScene(escena.Simulacion());
 
             }
         });
@@ -100,13 +102,11 @@ public class Interfaz extends Application {
 
         StackPane pane = new StackPane();
         pane.getChildren().add(vb);
-        Scene scene = new Scene(pane, 700, 600);
+        Scene scene = new Scene(pane, 700, 700);
 
         primaryStage.setTitle("***Aeropuerto***");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
-   
 
 }

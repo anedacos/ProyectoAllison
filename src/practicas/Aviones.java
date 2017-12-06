@@ -1,4 +1,5 @@
 package practicas;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,108 +10,93 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 /**
  *
  * @author User
  */
-public class Aviones extends Thread {
-    Slider slider = new Slider();
-    Button pausar = new Button("Pausar simulacion");
-    
-    Queue<Avion> cola;
-    //ArrayList<Label> AvionesCompletos = new ArrayList <Label>();
-    
-    
-    public void ListarAviones(ArrayList<Label> label){
-        Iterator it = cola.iterator();
-        while(it.hasNext()){
-            Label temp = new Label(this.cola.poll().codigo+"\n"+this.cola.poll().partida+"\n");
-            label.add(temp);
-        }
-    }
+public class Aviones implements Comparable<Aviones> {
+
+    String codigo, partida, destino;
+    int distancia, tiempoEspera;
     
 
-    public Aviones(Queue<Avion> cola) {
-        this.cola = cola;
+    public Aviones() {
+        this.codigo = null;
+        this.partida = null;
+        this.destino = null;
+        this.distancia = 0;
+        this.tiempoEspera = 0;
     }
 
-    public Aviones() {        
+    public Aviones(String codigo, String partida, String destino, int distancia, int tiempoEspera) {
+        this.codigo = codigo;
+        this.partida = partida;
+        this.destino = destino;
+        this.distancia = distancia;
+        this.tiempoEspera = tiempoEspera;
     }
 
-    public Queue<Avion> getCola() {
-        return cola;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCola(Queue<Avion> cola) {
-        this.cola = cola;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
-        
+
+    public String getPartida() {
+        return partida;
+    }
+
+    public void setPartida(String partida) {
+        this.partida = partida;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public int getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
+    }
+
+    public int getTiempoEspera() {
+        return tiempoEspera;
+    }
+
+    public void setTiempoEspera(int tiempoEspera) {
+        this.tiempoEspera = tiempoEspera;
+    }
+
     @Override
-    public void run() {
-        try {
-            //Avion.
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    
-    
-    public Group Contenido(Group grupo) {
-        slider.setMin(0);
-        slider.setMax(10);
-        slider.setValue(0);
-        //Button pausar = new Button("Pausar Simulación");
-        pausar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(pausar.isPressed()==true){
-                //run();
-            }}
-        });
-
-        VBox vb = new VBox();
-        HBox hb1 = new HBox();
-        HBox hb2 = new HBox();
-        HBox hb3 = new HBox();
-        LinkedList<Label> arr = new LinkedList();
-        Iterator it = cola.iterator();        
-        return grupo;
+    public String toString() {
+        return "Codigo=" + codigo + ", partida=" + partida + ", destino=" + destino + ", distancia=" + distancia + ", tiempoEspera=" + tiempoEspera + '}';
     }
 
-    public Scene Simulacion() {
-        //Contenedora contenedor= new Contenedora();
-        VBox vb = new VBox();
-        VBox vbi = new VBox();
-        HBox hb1 = new HBox();
-        HBox hb2 = new HBox();
-        HBox hb3 = new HBox();
-
-        LinkedList<Label> arr = new LinkedList();
-        Group grupo = new Group();
-
-        Contenido(grupo);        
-        Scene escenaSimulacion = new Scene(grupo, 600, 600);
-        return escenaSimulacion;
-    }
-    
-    public Queue<Avion> separandoCola(PriorityQueue<Avion> colaJunta, PriorityQueue<Avion> prioridad1, PriorityQueue<Avion> prioridad2, PriorityQueue<Avion> prioridad3) {
-        ArrayList<Avion> temp = new ArrayList<Avion>();
-        ArrayList<Avion> temp1 = new ArrayList<Avion>();
-        ArrayList<Avion> temp2 = new ArrayList<Avion>();
-        Queue<Avion> colaNueva=new LinkedList<Avion>();
+    public Queue<Aviones> separandoCola(PriorityQueue<Aviones> colaJunta, PriorityQueue<Aviones> prioridad1, PriorityQueue<Aviones> prioridad2, PriorityQueue<Aviones> prioridad3) {
+        ArrayList<Aviones> temp = new ArrayList<Aviones>();
+        ArrayList<Aviones> temp1 = new ArrayList<Aviones>();
+        ArrayList<Aviones> temp2 = new ArrayList<Aviones>();
+        Queue<Aviones> colaNueva=new LinkedList<Aviones>();
         Iterator it = colaJunta.iterator();
         while (it.hasNext()) {
-            Avion line = (Avion) it.next();
+            Aviones line = (Aviones) it.next();
             if (line.getDistancia() < 500) {
                 temp.add(line);
                 //prioridad1.offer(line);
@@ -127,25 +113,25 @@ public class Aviones extends Thread {
         Collections.sort(temp);
         Collections.sort(temp1);
         Collections.sort(temp2);
-        for (Avion n : temp) {
+        for (Aviones n : temp) {
             prioridad1.offer(n);
         }
-        for (Avion n1 : temp1) {
+        for (Aviones n1 : temp1) {
             prioridad2.offer(n1);
         }
-        for (Avion n2 : temp2) {
+        for (Aviones n2 : temp2) {
             prioridad3.offer(n2);
         }
         System.out.println("Menores a 500");
-        for (Avion linea : temp) {
+        for (Aviones linea : temp) {
             System.out.println(linea);
         }
         System.out.println("\nEntre 500 y 1000");
-        for (Avion linea : temp1) {
+        for (Aviones linea : temp1) {
             System.out.println(linea);
         }
         System.out.println("\nMayores a 1000");
-        for (Avion linea : temp2) {
+        for (Aviones linea : temp2) {
             System.out.println(linea);
         }
       //  colaJunta.clear();
@@ -159,21 +145,22 @@ public class Aviones extends Thread {
         while (!prioridad3.isEmpty()) {
             colaNueva.offer(prioridad3.poll());
         }
-        /*
-         while (it.hasNext()) {
-            Avion line2 = (Avion) it.next();
-            line2.CrearAvion(aviones);
-        }*/
-        
-        System.out.println("\n Posi \n");
-        for (Avion cn : colaNueva) {
-            System.out.println(cn);
-        }
-        
+        System.out.println(colaNueva);
         return colaNueva;
     }
 
-     public PriorityQueue<Avion> instanciando(String fichero, PriorityQueue<Avion> colaPrioridad) throws FileNotFoundException {
+    @Override
+    public int compareTo(Aviones a) {
+        if ((int) a.getTiempoEspera() > (int) this.getTiempoEspera()) {
+            return 1;
+        }
+        if ((int) a.getTiempoEspera() < (int) this.getTiempoEspera()) {
+            return -1;
+        }
+        return 0;
+    }
+
+    public PriorityQueue<Aviones> instanciando(String fichero, PriorityQueue<Aviones> colaPrioridad) throws FileNotFoundException {
         String linea = "";
         try {
             final BufferedReader b = new BufferedReader(new FileReader(fichero));
@@ -184,7 +171,7 @@ public class Aviones extends Thread {
                 String dat2 = data[2];
                 int dat3 = Integer.parseInt(data[3]);
                 int dat4 = Integer.parseInt(data[4]);
-                colaPrioridad.offer(new Avion(dat, dat1, dat2, dat3, dat4));
+                colaPrioridad.offer(new Aviones(dat, dat1, dat2, dat3, dat4));
             }
             b.close();
         } catch (FileNotFoundException e) {
@@ -195,4 +182,15 @@ public class Aviones extends Thread {
         return colaPrioridad;
     }
     
+    public ListView<Aviones> llenandoTabla(ListView<Aviones> lista, Queue<Aviones> cola){
+        
+        Iterator it= cola.iterator();
+        while(it.hasNext()){
+            Aviones linea= (Aviones) it.next();
+            lista.getItems().add(linea);
+            
+        }
+        
+    return lista;
+    }
 }

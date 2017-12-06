@@ -5,19 +5,18 @@
  */
 package practicas;
 
-import javafx.util.Duration;
-
 /**
  *
  * @author User
  */
-public class Hilo extends Thread {
-    @Override
-    public void run() {
-        try {
-            Aviones.interrupted();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+public class instancia {
+    
+    public void llamarNombre(String nombre){
+        System.out.println("Hola "+nombre);
+        
     }
+    public void cambiarNombre(String nombre){
+        System.out.println("Hola "+nombre);
+    }
+    
 }
